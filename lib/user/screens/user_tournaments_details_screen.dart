@@ -5,7 +5,8 @@ import 'package:teamup_turf/baseurl.dart';
 
 class UserTournamentDetailsScreen extends StatefulWidget {
   final String tournamentId;
-  const UserTournamentDetailsScreen({Key? key, required this.tournamentId}) : super(key: key);
+  final String ? teamid;
+  const UserTournamentDetailsScreen({Key? key, required this.tournamentId,required this.teamid}) : super(key: key);
 
   @override
   _UserTournamentDetailsScreenState createState() => _UserTournamentDetailsScreenState();
@@ -67,7 +68,7 @@ class _UserTournamentDetailsScreenState extends State<UserTournamentDetailsScree
           children: [
             Text(
               tournament!['name'] ?? 'Unknown Tournament',
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
             ),
             const Divider(),
             Text('🏆 Prize: ${tournament!['prize'] ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
@@ -91,7 +92,7 @@ class _UserTournamentDetailsScreenState extends State<UserTournamentDetailsScree
       elevation: 4,
       margin: const EdgeInsets.all(12),
       child: ListTile(
-        leading: const Icon(Icons.sports_soccer, color: Colors.teal, size: 30),
+        leading: const Icon(Icons.sports_soccer, color: Colors.green, size: 30),
         title: Text(turf['turfName'] ?? 'Unknown Turf', style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +133,7 @@ class _UserTournamentDetailsScreenState extends State<UserTournamentDetailsScree
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Colors.green,
                   child: Text(team['teamName'][0], style: const TextStyle(color: Colors.white)),
                 ),
                 title: Text(team['teamName'], style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -147,12 +148,39 @@ class _UserTournamentDetailsScreenState extends State<UserTournamentDetailsScree
     );
   }
 
-  @override
+  Future<void> _registerTeam() async {
+    if (widget.teamid == null) return;
+    
+    final url = Uri.parse('$baseUrl/api/tournament/register-team');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'tournamentId': widget.tournamentId,
+        'teamId': widget.teamid,
+      }),
+    );
+
+    final responseData = jsonDecode(response.body);
+    if (response.statusCode == 200 && responseData['success'] == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Team registered successfully')),
+      );
+      _fetchTournamentDetails();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(responseData['message'] ?? 'Registration failed')),
+      );
+    }
+  }
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tournament Details'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -183,23 +211,31 @@ class _UserTournamentDetailsScreenState extends State<UserTournamentDetailsScree
                       _buildTournamentInfo(),
                       _buildTurfDetails(),
                       _buildTeamsList(),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(16.0),
-                      //   child: ElevatedButton(
-                      //     style: ElevatedButton.styleFrom(
-                      //       backgroundColor: Colors.teal,
-                      //       minimumSize: const Size(double.infinity, 50),
-                      //     ),
-                      //     onPressed: () {
-                            
-                      //     },
-                      //     child: const Text('Register for Tournament',
-                      //         style: TextStyle(fontSize: 18, color: Colors.white)),
-                      //   ),
-                      // ),
+                      if (widget.teamid != null)
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              minimumSize: const Size(double.infinity, 50),
+                            ),
+                            onPressed: _registerTeam,
+                            child: const Text('Register Team',
+                                style: TextStyle(fontSize: 18, color: Colors.white)),
+                          ),
+                        ),
                     ],
                   ),
                 ),
     );
   }
+
+
+
+
+
 }
+
+
+
+

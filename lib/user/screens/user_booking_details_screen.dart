@@ -56,11 +56,11 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Booking Details'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         centerTitle: true,
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.teal))
+          ? Center(child: CircularProgressIndicator(color: Colors.green))
           : _errorMessage.isNotEmpty
               ? Center(child: Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 16)))
               : _booking == null
@@ -82,7 +82,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.teal,
+                                  color: Colors.green,
                                 ),
                               ),
                               SizedBox(height: 8),

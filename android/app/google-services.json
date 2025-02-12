@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534134330553",
+    "project_id": "teamupturf-6ac3d",
+    "storage_bucket": "teamupturf-6ac3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534134330553:android:e842d1830d044002173768",
+        "android_client_info": {
+          "package_name": "com.example.teamup_turf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1jDwQEJWMsZuh-M6ilDyRt-2TaNkCgRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

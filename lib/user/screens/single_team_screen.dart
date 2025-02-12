@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:teamup_turf/login_services.dart';
+import 'package:teamup_turf/turf/screens/touranament_list.dart';
+import 'package:teamup_turf/user/screens/turf_list_screen.dart';
+import 'package:teamup_turf/user/screens/user_all_turnaments_list.dart';
 import 'package:teamup_turf/user/screens/user_request_list_screen.dart';
 import 'package:teamup_turf/user/services/user_api_services.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +31,8 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
   Future<Map<String, dynamic>> teamDetails() async {
     try {
       final result = await userApiServices.singleTeam(id: widget.id);
+      print('============myteam================');
+      print(result);
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result['message'])));
       return result['data'];
@@ -71,7 +76,7 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Team Details'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -112,7 +117,7 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
                           Row(
                             children: [
                               const Icon(Icons.group,
-                                  size: 32, color: Colors.teal),
+                                  size: 32, color: Colors.green),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
@@ -120,7 +125,7 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
                                   style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.teal,
+                                    color: Colors.green,
                                   ),
                                 ),
                               ),
@@ -181,7 +186,7 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.teal,
+                              backgroundColor: Colors.green,
                               radius: 25,
                               child: Text(
                                 member['playerName'][0].toUpperCase(),
@@ -287,7 +292,7 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
                           return ElevatedButton(
                             onPressed:() async{
 
-                              final playerId =  await LoginServices().getLoginId();
+                              final playerId =  await LoginServices().getPlayerId();
                               print(playerId);
                               await joinTeam(playerId!, widget.id);
 
@@ -298,14 +303,54 @@ class _SingleTeamScreenState extends State<SingleTeamScreen> {
                                 : const Text('Request'),
                           );
                         }
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal,
-                          ),
-                          onPressed: () { 
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CaptainRequestsScreen(captainId: data['captainId']['_id']),));  
-                           },
-                          child: const Text('Manage request',style: TextStyle(color: Colors.white),),
+                        return Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                onPressed: () { 
+                                
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CaptainRequestsScreen(captainId: data['captainId']['_id'],pendingRequests: data["pendingRequests"],teamId: data['_id'],),)).then((value) {
+                                    setState(() {
+                                      teamDetails();
+                                    });
+                                  },);  
+                                 },
+                                child: const Text('Manage request',style: TextStyle(color: Colors.white),),
+                              ),
+                            ),
+
+                             const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TurfsListScreen(),));
+              },
+              child: const Text('Book Turf', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              onPressed: () {
+                // Navigate to book tournament screen
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UserAllTournamentListScreen(team_id: data['_id'],),));
+              },
+              child: const Text('Book Tournament', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+                          ],
                         );
                       },
                     ),

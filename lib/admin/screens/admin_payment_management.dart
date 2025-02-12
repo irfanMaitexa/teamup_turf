@@ -78,7 +78,7 @@ class AdminPaymentManagementScreen extends StatelessWidget {
           onPressed: () => _generateAndDownloadPDF(context),
           style: ElevatedButton.styleFrom(
             fixedSize: Size(double.maxFinite,45),
-            backgroundColor: Colors.teal,
+            backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -93,7 +93,7 @@ class AdminPaymentManagementScreen extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         title: Text('Payment Management',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         elevation: 0,
       ),
       body: Padding(
@@ -104,7 +104,7 @@ class AdminPaymentManagementScreen extends StatelessWidget {
             // Total Earnings
             Text(
               'Total Earnings: \$${totalEarnings}',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
             ),
             SizedBox(height: 20),
             

@@ -41,18 +41,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     }
   }
 
-  Future<void> createTeam({required String teamName}) async {
-    try {
-      final result = await UserApiServices().createTeam(teamName: teamName);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(result),
-        backgroundColor: Colors.green,
-      ));
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-  }
+  
 
   File? _profileImage;
 
@@ -80,7 +69,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
       appBar: AppBar(
         title: const Text('Profile View'),
         centerTitle: true,
-        backgroundColor: Colors.teal, // AppBar color set to teal
+        backgroundColor: Colors.green, // AppBar color set to teal
         titleTextStyle: TextStyle(color: Colors.white), // White text in AppBar
       ),
       body: SafeArea(
@@ -216,7 +205,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           child: Row(
                             children: [
                               Icon(Icons.groups,
-                                  color: Colors.teal), // Green icon
+                                  color: Colors.green), // Green icon
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
@@ -236,46 +225,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           height: 24,
                         ),
 
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              _showCreateTeamDialog(context);
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.lightGreen,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 12),
-                            ),
-                            child: const Text(
-                              'Create Team',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-
-
-                         Center(
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserTeamsScreen()));
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.lightGreen,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 12),
-                            ),
-                            child: const Text(
-                              'My team',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                        
 
 
                         // _buildInfoRow(Icons.star, 'Experience Level', experienceLevel),
@@ -317,7 +267,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
   Widget _buildInfoRow(IconData icon, String title, String value) {
     return Row(
       children: [
-        Icon(icon, color: Colors.teal), // Green icon
+        Icon(icon, color: Colors.green), // Green icon
         const SizedBox(width: 16),
         Expanded(
           child: Text(
@@ -365,64 +315,6 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     );
   }
 
-  void _showCreateTeamDialog(BuildContext context) {
-    final TextEditingController teamNameController = TextEditingController();
-    bool isLoading = false;
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: const Text('Create Team'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: teamNameController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter team name',
-                    ),
-                  ),
-                  if (isLoading)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: CircularProgressIndicator(color: Colors.green),
-                    ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: isLoading ? null : () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: isLoading
-                      ? null
-                      : () async {
-                          final teamName = teamNameController.text.trim();
-                          if (teamName.isNotEmpty) {
-                            setState(() => isLoading = true);
-                            await createTeam(teamName: teamName);
-                            setState(() => isLoading = false);
-                            Navigator.pop(context);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Team name cannot be empty'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        },
-                  child: const Text('Create'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
+
 }

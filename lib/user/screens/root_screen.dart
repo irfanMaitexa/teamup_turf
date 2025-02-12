@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:teamup_turf/user/screens/chat_select_screen.dart';
 import 'package:teamup_turf/user/screens/home_screen.dart';
 import 'package:teamup_turf/user/screens/news_screen.dart';
 import 'package:teamup_turf/user/screens/profile_view_screen.dart';
@@ -19,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     ProfileViewScreen(),
     const PlayerBookingsScreen(), // Placeholder for the Booking screen
-    UserAllTournamentListScreen(), // Placeholder for the Messages screen
+    UserAllTournamentListScreen(team_id: null,), // Placeholder for the Messages screen
     NewsScreen(), // Placeholder for the News screen
   ];
 
@@ -38,29 +37,29 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           // Customized Bottom Navigation Items
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home, color: Colors.teal),
+            icon: const Icon(Icons.home, color: Colors.green),
             label: 'Home',
-            backgroundColor: Colors.teal.shade50,
+            backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person, color: Colors.teal),
+            icon: const Icon(Icons.person, color: Colors.green),
             label: 'Profile',
-            backgroundColor: Colors.teal.shade50,
+            backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.book, color: Colors.teal),
+            icon: const Icon(Icons.book, color: Colors.green),
             label: 'Booking',
-            backgroundColor: Colors.teal.shade50,
+            backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.touch_app, color: Colors.teal),
+            icon: const Icon(Icons.touch_app, color: Colors.green),
             label: 'Tournaments',
-            backgroundColor: Colors.teal.shade50,
+            backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.library_books, color: Colors.teal),
+            icon: const Icon(Icons.library_books, color: Colors.green),
             label: 'News',
-            backgroundColor: Colors.teal.shade50,
+            backgroundColor: Colors.green.shade50,
           ),
         ],
       ),

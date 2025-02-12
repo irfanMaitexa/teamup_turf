@@ -34,7 +34,7 @@ class UserManagementScreen extends StatelessWidget {
           'User management',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -78,7 +78,7 @@ class UserManagementScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.teal[800],
+                            color: Colors.green[800],
                           ),
                         ),
                         subtitle: Column(

@@ -1,18 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:teamup_turf/login_screen.dart';
+import 'package:teamup_turf/firebase_options.dart';
 import 'package:teamup_turf/splash_screen.dart';
-import 'package:teamup_turf/turf/screens/turf_registration.dart';
-import 'package:teamup_turf/turf/screens/turf_booking.dart';
-import 'package:teamup_turf/turf/screens/turf_details.dart';
-import 'package:teamup_turf/turf/screens/turf_edit.dart';
-import 'package:teamup_turf/user/screens/root_screen.dart';
 
-import 'package:teamup_turf/uat.dart';
 
-import 'turf/screens/login_screen.dart';
-import 'turf/screens/turf_homepage.dart';
 
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   runApp(const MyApp());
 }
 
@@ -32,3 +28,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

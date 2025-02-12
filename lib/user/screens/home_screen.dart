@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:teamup_turf/admin/services/admin_api_services.dart';
 import 'package:teamup_turf/user/screens/player_turf_details_screen.dart';
 import 'package:teamup_turf/user/screens/single_team_screen.dart';
+import 'package:teamup_turf/user/screens/user_teams_screen.dart';
 import 'package:teamup_turf/user/services/user_api_services.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +21,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        onPressed: () {
+
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserTeamsScreen()));
+
+          
+        },
+        child: const Icon(Icons.person),
+
+        
+      ),
       
       
       body: SingleChildScrollView(

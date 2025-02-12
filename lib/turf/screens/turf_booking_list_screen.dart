@@ -80,7 +80,7 @@ Future<void> _updateBookingStatus(String bookingId, String newStatus) async {
     return Scaffold(
       appBar: AppBar(
         title: Text('Turf Bookings'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
@@ -91,7 +91,7 @@ Future<void> _updateBookingStatus(String bookingId, String newStatus) async {
         ),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.teal))
+          ? Center(child: CircularProgressIndicator(color: Colors.green))
           : _errorMessage.isNotEmpty
               ? Center(child: Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 16)))
               : TabBarView(
@@ -125,10 +125,10 @@ Future<void> _updateBookingStatus(String bookingId, String newStatus) async {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
-                        leading: Icon(Icons.sports_soccer, color: Colors.teal, size: 40),
+                        leading: Icon(Icons.sports_soccer, color: Colors.green, size: 40),
                         title: Text(
                           booking['turfId']['turfName'],
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal),
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
                         ),
                         subtitle: Text('Location: ${booking['turfId']['location']}', style: TextStyle(fontSize: 14, color: Colors.grey[700])),
                       ),
@@ -161,7 +161,7 @@ Future<void> _updateBookingStatus(String bookingId, String newStatus) async {
                           _updateBookingStatus(booking['_id'], newStatus);
                         },
                         child: Text(booking['status'] == 'pending' ? 'Complete' : 'Cancel',style: TextStyle(color: Colors.white),),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                       ),
                     ],
                   ),

@@ -111,7 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         title: const Text('Edit Profile'),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         titleTextStyle: const TextStyle(color: Colors.white),
       ),
       body: Stack(
@@ -171,7 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: _updateProfile,
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.teal, padding: const EdgeInsets.symmetric(vertical: 16)),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green, padding: const EdgeInsets.symmetric(vertical: 16)),
                     child: const Text('Save Changes', style: TextStyle(fontSize: 16, color: Colors.white)),
                   ),
                 ],

@@ -67,7 +67,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
           children: [
             Text(
               tournament!['name'] ?? 'Unknown Tournament',
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
             ),
             const Divider(),
             Text('🏆 Prize: ${tournament!['prize'] ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
@@ -91,7 +91,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
       elevation: 4,
       margin: const EdgeInsets.all(12),
       child: ListTile(
-        leading: const Icon(Icons.sports_soccer, color: Colors.teal, size: 30),
+        leading: const Icon(Icons.sports_soccer, color: Colors.green, size: 30),
         title: Text(turf['turfName'] ?? 'Unknown Turf', style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Colors.green,
                   child: Text(team['teamName'][0], style: const TextStyle(color: Colors.white)),
                 ),
                 title: Text(team['teamName'], style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -152,7 +152,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tournament Details'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

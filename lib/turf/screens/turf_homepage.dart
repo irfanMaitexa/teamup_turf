@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:teamup_turf/splash_screen.dart';
 import 'package:teamup_turf/turf/screens/touranament_list.dart';
 import 'package:teamup_turf/turf/screens/tur_tournament_add_screen.dart';
 import 'package:teamup_turf/turf/screens/turf_booking_list_screen.dart';
+import 'package:teamup_turf/turf/screens/turf_dateils_page.dart';
+import 'package:teamup_turf/turf/screens/turf_user_chat_screen.dart';
 
 // Sample pages for navigation
 class TurfHomePage extends StatelessWidget {
@@ -91,7 +94,7 @@ class TurfHomePage extends StatelessWidget {
       case 2:
       case 3:
       case 4:
-        return Colors.teal; // Set teal color for all cards
+        return Colors.green; // Set teal color for all cards
       default:
         return Colors.red;
     }
@@ -105,13 +108,13 @@ class TurfHomePage extends StatelessWidget {
       case 1:
         return TurfBookingListsScreen();
       case 2:
-        return UserProfilePage();
+        return TurfUserListScreen();
       case 3:
         return TournamentListScreen();
       case 4:
         return TournamentListScreen();
       default:
-        return ChattingPage();
+        return Scaffold();
     }
   }
 
@@ -203,9 +206,9 @@ class TurfHomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
                 // Perform the logout action here, e.g., navigate to login screen
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => SplashScreen()),(route) => false,
                 );
               },
               child: const Text('Logout'),
@@ -218,110 +221,14 @@ class TurfHomePage extends StatelessWidget {
 }
 
 // Example pages for navigation
-class ChattingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chatting'),
-        backgroundColor: Colors.red,
-      ),
-      body: Center(
-        child: const Text(
-          'Chat features will be displayed here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
-class TurfDetailsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Turf Details'),
-        backgroundColor: Colors.green,
-      ),
-      body: Center(
-        child: const Text(
-          'Turf details will be displayed here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
-class BookingManagementPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Booking Management'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: const Text(
-          'Manage your bookings here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
-class UserProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Profile'),
-        backgroundColor: Colors.orange,
-      ),
-      body: Center(
-        child: const Text(
-          'User profile details will be displayed here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
-class TournamentsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tournaments'),
-        backgroundColor: Colors.purple,
-      ),
-      body: Center(
-        child: const Text(
-          'Tournaments details will be displayed here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: Colors.green,
-      ),
-      body: Center(
-        child: const Text(
-          'Login screen goes here.',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
+
+
+
+
+
+

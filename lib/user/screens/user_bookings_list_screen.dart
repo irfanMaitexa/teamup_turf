@@ -57,7 +57,7 @@ class _PlayerBookingsScreenState extends State<PlayerBookingsScreen> with Single
     return Scaffold(
       appBar: AppBar(
         title: Text('My Bookings'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
@@ -69,7 +69,7 @@ class _PlayerBookingsScreenState extends State<PlayerBookingsScreen> with Single
         ),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: Colors.teal))
+          ? Center(child: CircularProgressIndicator(color: Colors.green))
           : _errorMessage.isNotEmpty
               ? Center(child: Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 16)))
               : TabBarView(
@@ -118,7 +118,7 @@ class _PlayerBookingsScreenState extends State<PlayerBookingsScreen> with Single
                     children: [
                       Text(
                         booking['turfId']['turfName'],
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
                       ),
                       Icon(
                         booking['status'] == 'ongoing' ? Icons.schedule : Icons.check_circle,

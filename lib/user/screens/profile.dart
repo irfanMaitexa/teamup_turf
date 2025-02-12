@@ -21,11 +21,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: const Text('Profile Setup'),
         centerTitle: true,
-        backgroundColor: Colors.teal, // AppBar color set to teal
+        backgroundColor: Colors.green, // AppBar color set to teal
       ),
       body: SafeArea(
         child: Container(
-          color: Colors.teal, // Full teal background color
+          color: Colors.green, // Full teal background color
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: Column(
@@ -209,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       label: const Text('Upload Picture'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        foregroundColor: Colors.teal,
+                        foregroundColor: Colors.green,
                       ),
                     ),
                   ],
@@ -227,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     filled: true,
                     fillColor: Colors.white,
                     hintText: 'Enter your location',
-                    prefixIcon: const Icon(Icons.location_on, color: Colors.teal),
+                    prefixIcon: const Icon(Icons.location_on, color: Colors.green),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -270,7 +270,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      foregroundColor: Colors.teal,
+                      foregroundColor: Colors.green,
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

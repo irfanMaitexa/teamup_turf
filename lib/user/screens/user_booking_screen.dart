@@ -212,7 +212,7 @@ print('End Time: $endTime');
     return Scaffold(
       appBar: AppBar(
         title: Text('Book ${widget.turfName}'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -262,7 +262,7 @@ print('End Time: $endTime');
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _openRazorpay,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
                     : Text('Book Now', style: TextStyle(fontSize: 18)),

@@ -48,6 +48,7 @@ class TurfListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: const Text('Available Turfs'),
         elevation: 4,
       ),

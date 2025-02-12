@@ -30,7 +30,7 @@ class AdminFeedbackScreen extends StatelessWidget {
           color: Colors.white
         ),
         title: Text(' Feedback ', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         elevation: 0,
       ),
       body: Padding(
@@ -56,7 +56,7 @@ class AdminFeedbackScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Colors.green,
                           child: Icon(Icons.person, color: Colors.white, size: 30),
                         ),
                         SizedBox(width: 16),
@@ -65,7 +65,7 @@ class AdminFeedbackScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.teal[800],
+                            color: Colors.green[800],
                           ),
                         ),
                       ],

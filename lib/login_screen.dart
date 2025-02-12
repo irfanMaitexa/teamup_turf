@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:teamup_turf/admin/screens/admin_home_screen.dart';
@@ -40,8 +41,16 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           SnackBar(content: Text(message['message'])),
         );
         if (role == 'player') {
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
           Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()));
         } else if (role == 'turf') {
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
           Navigator.push(context, MaterialPageRoute(builder: (context) => TurfHomePage()));
         } else if (role == 'admin') {
           Navigator.push(context, MaterialPageRoute(builder: (context) => AdminHomeScreen()));

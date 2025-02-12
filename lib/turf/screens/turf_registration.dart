@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -44,6 +46,15 @@ class _TurfRegistrationFormState extends State<TurfRegistrationForm> {
     String result = await AuthServivices().turfRegister(
       lat:lat ?? 0, long:long ?? 0,about : _about.text,
       turfName: turfName, location: location, contact: contact, address: address, fair: fair, documentUrl: documentFile, email: email, password: password);
+    
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      FirebaseFirestore.instance.collection('turf').doc(userCredential.user!.uid).set({
+        'email': email,});
+    
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(result),)
     ); 

@@ -5,7 +5,8 @@ import 'package:teamup_turf/baseurl.dart';
 import 'package:teamup_turf/user/screens/user_tournaments_details_screen.dart';
 
 class UserAllTournamentListScreen extends StatefulWidget {
-  const UserAllTournamentListScreen({Key? key}) : super(key: key);
+  final String ? team_id;
+  const UserAllTournamentListScreen({Key? key,required this.team_id}) : super(key: key);
 
   @override
   _UserAllTournamentListScreenState createState() => _UserAllTournamentListScreenState();
@@ -56,7 +57,7 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
   Widget _buildTournamentCard(dynamic tournament) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => UserTournamentDetailsScreen(tournamentId: tournament['_id']))); 
+        Navigator.push(context, MaterialPageRoute(builder: (context) => UserTournamentDetailsScreen(tournamentId: tournament['_id'],teamid: widget.team_id,))); 
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -70,7 +71,7 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
               Text(
                 tournament['name'] ?? 'Unknown Tournament',
                 style: const TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
+                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
               ),
               const SizedBox(height: 8),
               Text('🏆 Prize: ${tournament['prize'] ?? 'N/A'}',
@@ -81,7 +82,7 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
               const Divider(),
               if (tournament['turfId'] != null)
                 ListTile(
-                  leading: const Icon(Icons.sports_soccer, color: Colors.teal),
+                  leading: const Icon(Icons.sports_soccer, color: Colors.green),
                   title: Text(
                     tournament['turfId']['turfName'] ?? 'Unknown Turf',
                     style: const TextStyle(fontWeight: FontWeight.bold),
@@ -101,7 +102,7 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Tournaments'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

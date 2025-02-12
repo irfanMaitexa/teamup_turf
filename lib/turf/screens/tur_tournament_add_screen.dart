@@ -83,7 +83,7 @@ class _CreateTournamentScreenState extends State<CreateTournamentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Create Tournament'), backgroundColor: Colors.teal),
+      appBar: AppBar(title: Text('Create Tournament'), backgroundColor: Colors.green),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Form(
@@ -98,10 +98,10 @@ class _CreateTournamentScreenState extends State<CreateTournamentScreen> {
               
               SizedBox(height: 20),
               _isLoading
-                  ? Center(child: CircularProgressIndicator(color: Colors.teal))
+                  ? Center(child: CircularProgressIndicator(color: Colors.green))
                   : ElevatedButton(
                       onPressed: _createTournament,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                       child: Text('Create Tournament', style: TextStyle(fontSize: 16)),
                     ),
             ],
@@ -131,7 +131,7 @@ class _CreateTournamentScreenState extends State<CreateTournamentScreen> {
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(),
-          suffixIcon: Icon(Icons.calendar_today, color: Colors.teal),
+          suffixIcon: Icon(Icons.calendar_today, color: Colors.green),
         ),
         onTap: () => _selectDate(context, controller),
         validator: (value) => value!.isEmpty ? 'Required' : null,

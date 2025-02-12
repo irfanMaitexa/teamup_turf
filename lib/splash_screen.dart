@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Timer to navigate to the next screen
-    Timer(Duration(seconds: 10), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => RoleSelectionScreen()));
     });

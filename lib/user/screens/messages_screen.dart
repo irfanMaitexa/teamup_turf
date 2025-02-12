@@ -33,7 +33,7 @@ class _MessageScreenState extends State<MessageScreen> {
       appBar: AppBar(
         title: const Text('Messages'),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
       ),
       body: SafeArea(
         child: Column(
@@ -70,7 +70,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   // Send Button
                   IconButton(
                     onPressed: _sendMessage,
-                    icon: const Icon(Icons.send, color: Colors.teal),
+                    icon: const Icon(Icons.send, color: Colors.green),
                   ),
                 ],
               ),

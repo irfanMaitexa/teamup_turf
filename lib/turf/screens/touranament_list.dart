@@ -70,7 +70,7 @@ class _TournamentListScreenState extends State<TournamentListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tournaments'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -80,7 +80,7 @@ class _TournamentListScreenState extends State<TournamentListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTournamentScreen(),)).then((value) {
             _fetchTournaments();
@@ -127,7 +127,7 @@ class _TournamentListScreenState extends State<TournamentListScreen> {
                               
                               contentPadding: const EdgeInsets.all(12),
                               leading: CircleAvatar(
-                                backgroundColor: Colors.teal,
+                                backgroundColor: Colors.green,
                                 child: Text(
                                   tournament['name'][0], // First letter
                                   style: const TextStyle(color: Colors.white),

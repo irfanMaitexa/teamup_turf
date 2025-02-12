@@ -16,7 +16,7 @@ class NewsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('News'),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
       ),
       body: SafeArea(
         child:FutureBuilder(future:_getNews() , builder: (context, snapshot) {

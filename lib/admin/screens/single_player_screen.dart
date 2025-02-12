@@ -11,7 +11,7 @@ class SinglePlayerDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Player Details', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
@@ -49,7 +49,7 @@ class SinglePlayerDetailsScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.teal[800],
+                        color: Colors.green[800],
                       ),
                     ),
                   ),

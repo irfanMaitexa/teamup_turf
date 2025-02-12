@@ -65,7 +65,7 @@ class _AllTournamentListScreenState extends State<AllTournamentListScreen> {
             Text(
               tournament['name'] ?? 'Unknown Tournament',
               style: const TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
+                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
             ),
             const SizedBox(height: 8),
             Text('🏆 Prize: ${tournament['prize'] ?? 'N/A'}',
@@ -76,7 +76,7 @@ class _AllTournamentListScreenState extends State<AllTournamentListScreen> {
             const Divider(),
             if (tournament['turfId'] != null)
               ListTile(
-                leading: const Icon(Icons.sports_soccer, color: Colors.teal),
+                leading: const Icon(Icons.sports_soccer, color: Colors.green),
                 title: Text(
                   tournament['turfId']['turfName'] ?? 'Unknown Turf',
                   style: const TextStyle(fontWeight: FontWeight.bold),
@@ -95,7 +95,7 @@ class _AllTournamentListScreenState extends State<AllTournamentListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Tournaments'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

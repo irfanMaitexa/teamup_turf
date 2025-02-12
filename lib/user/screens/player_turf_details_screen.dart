@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:teamup_turf/admin/screens/admin_turf_mangement_screen.dart';
 import 'package:teamup_turf/admin/services/admin_api_services.dart';
 import 'package:teamup_turf/user/screens/user_booking_screen.dart';
+import 'package:teamup_turf/user/screens/user_chat_screenns.dart';
 
 class PlayerTurfDetailsScreen extends StatefulWidget {
   final String turfId;
@@ -153,7 +155,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green[800],
+                          color: Colors.green,
                         ),
                       ),
                       SizedBox(height: 8),
@@ -202,7 +204,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
                               style: TextStyle(fontSize: 16),
                             ),
                             Spacer(),
-                            Icon(Icons.phone, color: Colors.green[800]),
+                            Icon(Icons.phone, color: Colors.green),
                           ],
                         ),
                         Divider(color: const Color.fromARGB(255, 220, 219, 219)),
@@ -218,7 +220,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
                               ),
                             ),
                             Spacer(),
-                            Icon(Icons.attach_money, color: Colors.green[800]),
+                            Icon(Icons.attach_money, color: Colors.green),
                           ],
                         ),
                         Divider(color: const Color.fromARGB(255, 220, 219, 219)),
@@ -240,7 +242,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
         icon: Icon(Icons.map, color: Colors.white),
         label: Text("View on Google Maps" ,style: TextStyle(color: Colors.white),),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green[800],
+          backgroundColor: Colors.green,
           padding: EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
@@ -284,7 +286,7 @@ if (turfDetails.containsKey('about') && turfDetails['about'] != null)
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green[800],
+                  color: Colors.green,
                 ),
               ),
               SizedBox(height: 8),
@@ -298,7 +300,6 @@ if (turfDetails.containsKey('about') && turfDetails['about'] != null)
       ),
     ),
   ),
-
 
 
    
@@ -332,6 +333,65 @@ if (turfDetails.containsKey('about') && turfDetails['about'] != null)
             ),
             SizedBox(height: 30),
 
+
+
+  
+
+              Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Chat Button
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        // Navigate to Chat Screen (Replace with actual screen)
+
+                        final turfId = await FirebaseFirestore.instance.collection('turf').where('email',isEqualTo: turfDetails['email']).limit(1).get();
+
+                        print(turfId.docs.first.id);
+
+                      
+
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => UserChatScreen(turfId: turfId.docs.first.id, turfName: turfDetails['turfName']),));
+                       
+                      },
+                      icon: Icon(Icons.chat, color: Colors.white),
+                      label: Text("Chat", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10), // Space between buttons
+
+                  // Review & Feedback Button
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        // Navigate to Review & Feedback Screen (Replace with actual screen)
+                        
+                      },
+                      icon: Icon(Icons.rate_review, color: Colors.white),
+                      label: Text("Review", style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+
+            
              Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20.0),
     child: SizedBox(
@@ -345,13 +405,18 @@ if (turfDetails.containsKey('about') && turfDetails['about'] != null)
         icon: Icon(Icons.map, color: Colors.white),
         label: Text("Book now" ,style: TextStyle(color: Colors.white),),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green[800],
+          backgroundColor: Colors.green,
           padding: EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
     ),
   ),
+
+  SizedBox(height: 20),
+
+
+
           ],
         ),
       );
