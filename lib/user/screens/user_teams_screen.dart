@@ -106,99 +106,98 @@ class _UserTeamsScreenState extends State<UserTeamsScreen> {
       });
     },);
   }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Teams'),
-        centerTitle: true,
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: FutureBuilder(
-                future: _getTeams(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.green),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text('Something went wrong'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No teams yet'));
-                  } else {
-                    final data = snapshot.data;
-                    return ListView.builder(
-                      itemCount: data!.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SingleTeamScreen(id: data[index]['_id']),
-                              ),
-                            );
-                          },
-                          child: TeamCard(
-                            title: data[index]['teamName'],
-                            description: data[index]['status'],
-                            onDelete: () => deleteTeam(id: data[index]['_id']),
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Your Teams'),
+      centerTitle: true,
+      backgroundColor: Colors.green,
+      foregroundColor: Colors.white,
+    ),
+    backgroundColor: Colors.black, // Set background color to black
+    body: SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder(
+              future: _getTeams(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(color: Colors.green),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text(
+                      'Something went wrong',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No teams yet',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                } else {
+                  final data = snapshot.data;
+                  return ListView.builder(
+                    itemCount: data!.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SingleTeamScreen(id: data[index]['_id']),
+                            ),
+                          );
+                        },
+                        child: TeamCard(
+                          title: data[index]['teamName'],
+                          description: data[index]['status'],
+                          onDelete: () => deleteTeam(id: data[index]['_id']),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  onPressed: () {
-                    _showCreateTeamDialog(context);
-                    // Add your button action here
-                  },
-                  child: const Text(
-                    'Create New Team',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
+                ),
+                onPressed: () {
+                  _showCreateTeamDialog(context);
+                },
+                child: const Text(
+                  'Create New Team',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
-
-
-  
+    ),
+  );
 }
-
-
-
-
-
+}
 
 class TeamCard extends StatelessWidget {
   final String title;
@@ -219,6 +218,7 @@ class TeamCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       elevation: 4.0,
+      color: Colors.green, // Set card background to green
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -231,6 +231,7 @@ class TeamCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black, // Set text color to black
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -238,7 +239,7 @@ class TeamCard extends StatelessWidget {
                   'Status: $description',
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.black, // Set text color to black
                   ),
                 ),
               ],

@@ -14,9 +14,7 @@ class TurfDetailsPage extends StatefulWidget {
 
 class _TurfDetailsPageState extends State<TurfDetailsPage> {
   File? _profileImage;
-
   final ImagePicker _picker = ImagePicker();
-
   TurfApiServices turfApiServices = TurfApiServices();
 
   Future<String> getLoginId() async {
@@ -50,7 +48,7 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
         contact: contact,
         address: address,
         fair: fair,
-        imageUrl: imageUrl??null,
+        imageUrl: imageUrl ?? null,
       );
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(message)));
@@ -67,7 +65,6 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
       setState(() {
         _profileImage = File(pickedImage.path);
       });
-      // Update the image URL directly after picking the image
       await editTurf(
         id: id,
         turfName: "", // Provide required default values or fetch current ones
@@ -103,7 +100,10 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Edit Profile'),
+        backgroundColor: Colors.black, // Set dialog background to black
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(color: Colors.white)), // Set text color to white
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -119,12 +119,12 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel',style: TextStyle(
-              color: Colors.green
-            ),),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.green), // Set text color to green
+            ),
           ),
           TextButton(
-
             onPressed: () async {
               await editTurf(
                 id: id,
@@ -133,16 +133,15 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
                 contact: contactController.text,
                 address: addressController.text,
                 fair: fairController.text,
-                imageUrl: imageUrl??null,
+                imageUrl: imageUrl ?? null,
               );
               Navigator.of(context).pop();
-              setState(() {
-                
-              });
+              setState(() {});
             },
-            child: const Text('Save',style: TextStyle(
-              color: Colors.green
-            ),),
+            child: const Text(
+              'Save',
+              style: TextStyle(color: Colors.green), // Set text color to green
+            ),
           ),
         ],
       ),
@@ -154,9 +153,18 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         controller: controller,
+        style: const TextStyle(color: Colors.white), // Set text color to white
         decoration: InputDecoration(
           labelText: label,
-          border: const OutlineInputBorder(),
+          labelStyle: const TextStyle(color: Colors.white), // Set label color to white
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green)), // Set border color to green
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green), // Set enabled border color to green
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green), // Set focused border color to green
+          ),
         ),
       ),
     );
@@ -165,9 +173,13 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, // Set background color to black
       appBar: AppBar(
-        title: const Text('Turf Details'),
-        backgroundColor: Colors.green,
+        title: const Text(
+          'Turf Details',
+          style: TextStyle(color: Colors.white), // Set text color to white
+        ),
+        backgroundColor: Colors.black, // Set AppBar background to black
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -178,12 +190,15 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
             if (snapshots.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(
-                  color: Colors.green,
+                  color: Colors.green, // Set loading indicator color to green
                 ),
               );
             } else if (snapshots.hasError) {
               return Center(
-                child: Text('Something went wrong'),
+                child: Text(
+                  'Something went wrong',
+                  style: TextStyle(color: Colors.white), // Set text color to white
+                ),
               );
             } else {
               final data = snapshots.data;
@@ -220,14 +235,16 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
                         contact: data['contact'],
                         address: data['address'],
                         fair: data['fair'],
-                        imageUrl: (data['imageUrl'] != null && data['imageUrl'].isNotEmpty) ? data['imageUrl'][0] : null,
+                        imageUrl: (data['imageUrl'] != null && data['imageUrl'].isNotEmpty)
+                            ? data['imageUrl'][0]
+                            : null,
                       );
                     },
                     icon: const Icon(Icons.edit),
                     label: const Text('Edit Profile'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green, // Set button background to green
+                      foregroundColor: Colors.white, // Set text color to white
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 15),
                     ),
@@ -281,62 +298,68 @@ class _TurfDetailsPageState extends State<TurfDetailsPage> {
   }
 
   Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        children: [
-          Text(
-            '$label:',
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              value,
+    return Card(
+      color: Colors.green, // Set card background to green
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Text(
+              '$label:',
               style: const TextStyle(
                 fontSize: 16,
-                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                color: Colors.black, // Set text color to black
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black, // Set text color to black
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-
 
   Widget _buildDocumentRow(String documentUrl) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.picture_as_pdf,
-            color: Colors.red,
-            size: 24,
-          ),
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: () => _launchUrl(documentUrl),
-            child: const Text(
-              'View Document',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.blue,
-                decoration: TextDecoration.underline,
+    return Card(
+      color: Colors.green, // Set card background to green
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.black, // Set icon color to black
+              size: 24,
+            ),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () => _launchUrl(documentUrl),
+              child: const Text(
+                'View Document',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black, // Set text color to black
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // Function to launch a URL
   void _launchUrl(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {

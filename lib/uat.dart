@@ -7,18 +7,11 @@ class RoleSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Set the background color to black
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.deepPurple],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
+          color: Colors.black,
           child: Column(
             children: [
               // // Header Section
@@ -48,24 +41,7 @@ class RoleSelectionScreen extends StatelessWidget {
               //   ),
               // ),
 
-              Text(
-                      'TeamUp Turf',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 2,
-                      ),
-                    ),
-
-              Text(
-                      'Choose Your Role to Get Started',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white70,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
+             
               
               
               
@@ -77,7 +53,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         title: 'User',
                         description: 'Book turfs and join teams effortlessly.',
                         icon: Icons.person,
-                        color: Colors.green,
+                        color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -93,7 +69,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         title: 'Admin',
                         description: 'Manage platform data and operations.',
                         icon: Icons.admin_panel_settings,
-                        color: Colors.orange,
+                        color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -109,7 +85,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         title: 'Turf Manager',
                         description: 'Manage bookings and list turfs.',
                         icon: Icons.sports_soccer,
-                        color: Colors.purple,
+                        color: Colors.white,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -141,7 +117,7 @@ class RoleSelectionScreen extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 30),
         width: MediaQuery.of(context).size.width,
         child: Card(
-          color: Colors.white,
+          color: Colors.green,
           elevation: 10,
           
           shadowColor: color.withOpacity(0.5),
@@ -173,7 +149,7 @@ class RoleSelectionScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black54,
+                    color: Colors.white,
                   ),
                 ),
               ],

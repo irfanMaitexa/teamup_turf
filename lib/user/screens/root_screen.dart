@@ -25,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, // Set background color to black for consistency
       body: _screens[_currentIndex], // Display the selected screen
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -34,37 +35,38 @@ class _MainScreenState extends State<MainScreen> {
             _currentIndex = index;
           });
         },
+        backgroundColor: Colors.black, // Bottom navigation bar background color black
+        selectedItemColor: Colors.green, // Selected item color green
+        unselectedItemColor: Colors.white, // Unselected item color white
         items: [
           // Customized Bottom Navigation Items
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home, color: Colors.green),
+            icon: const Icon(Icons.home),
             label: 'Home',
             backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person, color: Colors.green),
+            icon: const Icon(Icons.person),
             label: 'Profile',
             backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.book, color: Colors.green),
+            icon: const Icon(Icons.book),
             label: 'Booking',
             backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.touch_app, color: Colors.green),
+            icon: const Icon(Icons.touch_app),
             label: 'Tournaments',
             backgroundColor: Colors.green.shade50,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.library_books, color: Colors.green),
+            icon: const Icon(Icons.library_books),
             label: 'News',
             backgroundColor: Colors.green.shade50,
           ),
         ],
       ),
-      // AppBar with gradient and title
-     
     );
   }
 }

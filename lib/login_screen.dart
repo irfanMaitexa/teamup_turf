@@ -70,7 +70,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(20),
@@ -89,7 +89,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         : widget.role == 'player'
                             ? Icons.person
                             : Icons.sports_soccer,
-                    color: Colors.white,
+                    color: Colors.black, // Changed icon color to black
                     size: 60,
                   ),
                 ),
@@ -106,7 +106,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green[800],
+                    color: Colors.white, // Changed text color to white
                   ),
                 ),
                 SizedBox(height: 20),
@@ -117,9 +117,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    prefixIcon: Icon(Icons.email),
-                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email, color: Colors.white), // Changed icon color to white
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white), // Changed border color to white
+                    ),
+                    labelStyle: TextStyle(color: Colors.white), // Changed label text color to white
                   ),
+                  style: TextStyle(color: Colors.white), // Changed text input color to white
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -138,12 +142,15 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.lock, color: Colors.white), // Changed icon color to white
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white), // Changed border color to white
+                    ),
+                    labelStyle: TextStyle(color: Colors.white), // Changed label text color to white
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.grey,
+                        color: Colors.white, // Changed icon color to white
                       ),
                       onPressed: () {
                         setState(() {
@@ -152,6 +159,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       },
                     ),
                   ),
+                  style: TextStyle(color: Colors.white), // Changed text input color to white
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -167,7 +175,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     children: [
                       TextSpan(
                         text: 'Don\'t have an account? ',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white), // Changed text color to white
                       ),
                       TextSpan(
                         text: 'Signup',

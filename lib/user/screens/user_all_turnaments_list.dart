@@ -5,14 +5,17 @@ import 'package:teamup_turf/baseurl.dart';
 import 'package:teamup_turf/user/screens/user_tournaments_details_screen.dart';
 
 class UserAllTournamentListScreen extends StatefulWidget {
-  final String ? team_id;
-  const UserAllTournamentListScreen({Key? key,required this.team_id}) : super(key: key);
+  final String? team_id;
+  const UserAllTournamentListScreen({Key? key, required this.team_id})
+      : super(key: key);
 
   @override
-  _UserAllTournamentListScreenState createState() => _UserAllTournamentListScreenState();
+  _UserAllTournamentListScreenState createState() =>
+      _UserAllTournamentListScreenState();
 }
 
-class _UserAllTournamentListScreenState extends State<UserAllTournamentListScreen> {
+class _UserAllTournamentListScreenState
+    extends State<UserAllTournamentListScreen> {
   List<dynamic> tournaments = [];
   bool isLoading = true;
   bool isError = false;
@@ -57,9 +60,18 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
   Widget _buildTournamentCard(dynamic tournament) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => UserTournamentDetailsScreen(tournamentId: tournament['_id'],teamid: widget.team_id,))); 
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UserTournamentDetailsScreen(
+              tournamentId: tournament['_id'],
+              teamid: widget.team_id,
+            ),
+          ),
+        );
       },
       child: Card(
+        color: Colors.green, // Set card background to green
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 4,
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -71,24 +83,44 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
               Text(
                 tournament['name'] ?? 'Unknown Tournament',
                 style: const TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Set text color to black
+                ),
               ),
               const SizedBox(height: 8),
-              Text('🏆 Prize: ${tournament['prize'] ?? 'N/A'}',
-                  style: const TextStyle(fontSize: 16)),
               Text(
-                  '📅 Date: ${tournament['startDate']} - ${tournament['endDate']}',
-                  style: const TextStyle(fontSize: 16)),
-              const Divider(),
+                '🏆 Prize: ${tournament['prize'] ?? 'N/A'}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black, // Set text color to black
+                ),
+              ),
+              Text(
+                '📅 Date: ${tournament['startDate']} - ${tournament['endDate']}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black, // Set text color to black
+                ),
+              ),
+              const Divider(color: Colors.black), // Set divider color to black
               if (tournament['turfId'] != null)
                 ListTile(
-                  leading: const Icon(Icons.sports_soccer, color: Colors.green),
+                  leading: const Icon(Icons.sports_soccer,
+                      color: Colors.black), // Set icon color to black
                   title: Text(
                     tournament['turfId']['turfName'] ?? 'Unknown Turf',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // Set text color to black
+                    ),
                   ),
                   subtitle: Text(
-                      '${tournament['turfId']['location'] ?? ''}\n📞 Contact: ${tournament['turfId']['contact'] ?? ''}'),
+                    '${tournament['turfId']['location'] ?? ''}\n📞 Contact: ${tournament['turfId']['contact'] ?? ''}',
+                    style: const TextStyle(
+                      color: Colors.black, // Set text color to black
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -100,37 +132,56 @@ class _UserAllTournamentListScreenState extends State<UserAllTournamentListScree
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, // Set background color to black
       appBar: AppBar(
-        title: const Text('All Tournaments'),
-        backgroundColor: Colors.green,
+        title: const Text(
+          'All Tournaments',
+          style: TextStyle(color: Colors.white)), // Set text color to white
+        backgroundColor: Colors.black, // Set AppBar background to black
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh, color: Colors.white), // Set icon color to white
             onPressed: _fetchTournaments,
           ),
         ],
       ),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green, // Set loading indicator color to green
+              ),
+            )
           : isError
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Failed to load tournaments',
-                          style: TextStyle(color: Colors.red)),
+                      const Text(
+                        'Failed to load tournaments',
+                        style: TextStyle(color: Colors.white)), // Set text color to white
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _fetchTournaments,
-                        child: const Text('Retry'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green, // Set button background to green
+                        ),
+                        child: const Text(
+                          'Retry',
+                          style: TextStyle(color: Colors.black), // Set text color to black
+                        ),
                       ),
+                      
                     ],
                   ),
                 )
               : tournaments.isEmpty
                   ? const Center(
-                      child: Text('No tournaments found',
-                          style: TextStyle(fontSize: 18, color: Colors.grey)),
+                      child: Text(
+                        'No tournaments found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white), // Set text color to white
+                      ),
                     )
                   : ListView.builder(
                       padding: const EdgeInsets.all(8),

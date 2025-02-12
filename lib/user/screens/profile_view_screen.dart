@@ -6,9 +6,11 @@ import 'package:teamup_turf/admin/services/admin_api_services.dart';
 import 'package:teamup_turf/login_services.dart';
 import 'package:teamup_turf/splash_screen.dart';
 import 'package:teamup_turf/turf/services/turf_api_services.dart';
+import 'package:teamup_turf/user/screens/my_request_screen.dart';
 import 'package:teamup_turf/user/screens/user_edit_profile_screen.dart';
 import 'package:teamup_turf/user/screens/user_teams_screen.dart';
 import 'package:teamup_turf/user/services/user_api_services.dart';
+
 
 class ProfileViewScreen extends StatefulWidget {
   @override
@@ -41,23 +43,10 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     }
   }
 
-  
-
-  File? _profileImage;
-
-  final ImagePicker _picker = ImagePicker();
-
-  TurfApiServices turfApiServices = TurfApiServices();
-
-  Future<String> getLoginId() async {
-    final loginid = await LoginServices().getLoginId();
-    return loginid!;
-  }
-
   Future<Map<String, dynamic>> fetchPlayerDetails() async {
-    String loginId = await getLoginId();
+    String? loginId = await LoginServices().getLoginId();
     try {
-      return await AdminApiServices().viewSinglePlayer(loginId: loginId);
+      return await AdminApiServices().viewSinglePlayer(loginId: loginId!);
     } catch (e) {
       throw Exception("Failed to fetch player details: $e");
     }
@@ -69,12 +58,12 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
       appBar: AppBar(
         title: const Text('Profile View'),
         centerTitle: true,
-        backgroundColor: Colors.green, // AppBar color set to teal
-        titleTextStyle: TextStyle(color: Colors.white), // White text in AppBar
+        backgroundColor: Colors.black, // Dark app bar
+        titleTextStyle: TextStyle(color: Colors.white),
       ),
       body: SafeArea(
         child: Container(
-          color: Colors.white, // White background for the profile view screen
+          color: Colors.black, // Dark background
           child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: FutureBuilder(
@@ -88,7 +77,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     );
                   } else if (snapshot.hasError) {
                     return Center(
-                      child: Text('Something went wrong'),
+                      child: Text('Something went wrong', style: TextStyle(color: Colors.white)),
                     );
                   } else {
                     final data = snapshot.data!;
@@ -96,30 +85,13 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 16),
-
-                        // Profile Picture Section with Shadow
                         Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 8,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: CircleAvatar(
-                              radius: 60,
-                              backgroundImage:
-                                  NetworkImage(data['imageUrl'][0]),
-                            ),
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: NetworkImage(data['imageUrl'][0]),
                           ),
                         ),
                         const SizedBox(height: 16),
-
-                        // Edit Button with Light Green Theme
                         Align(
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
@@ -127,73 +99,31 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditProfileScreen(playerData: data),
+                                  builder: (context) => EditProfileScreen(playerData: data),
                                 ),
                               ).then((success) {
                                 if (success == true) {
-                                  // Refresh the profile data after editing
                                   setState(() {});
                                 }
                               });
-                              // Edit button functionality here
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Colors.lightGreen, // Light Green button color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
+                              backgroundColor: Colors.green,
                             ),
                             child: const Text(
                               'Edit',
-                              style: TextStyle(
-                                color: Colors.white, // White text color
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
                         const SizedBox(height: 24),
-
-                        // Profile Details Sections
-                        _buildInfoRow(
-                            Icons.person, 'Username', data['playerName']),
-                        const Divider(color: Colors.grey, thickness: 1),
+                        _buildInfoRow(Icons.person, 'Username', data['playerName']),
+                        _buildInfoRow(Icons.phone, 'Phone Number', data['mobile']),
+                        _buildInfoRow(Icons.transgender, 'Gender', data['gender']),
+                        _buildInfoRow(Icons.sports_soccer, 'Preferred Position', data['position']),
+                        
+                        _buildInfoRow(Icons.location_on, 'Location', data['location']),
                         const SizedBox(height: 16),
-
-                        _buildInfoRow(
-                            Icons.phone, 'Phone Number', data['mobile']),
-                        const Divider(color: Colors.grey, thickness: 1),
-                        const SizedBox(height: 16),
-
-                        // _buildInfoRow(Icons.email, 'Email', ),
-                        // const Divider(color: Colors.grey, thickness: 1),
-                        // const SizedBox(height: 16),
-
-                        _buildInfoRow(
-                            Icons.transgender, 'Gender', data['gender']),
-                        const Divider(color: Colors.grey, thickness: 1),
-                        const SizedBox(height: 16),
-
-                        _buildInfoRow(Icons.sports_soccer, 'Preferred Position',
-                            data['position']),
-                        const Divider(color: Colors.grey, thickness: 1),
-                        const SizedBox(height: 16),
-
-                        _buildInfoRow(Icons.access_time, 'Availability',
-                            data['availability']),
-                        const Divider(color: Colors.grey, thickness: 1),
-                        const SizedBox(height: 16),
-
-                        _buildInfoRow(
-                            Icons.location_on, 'Location', data['location']),
-                        const Divider(color: Colors.grey, thickness: 1),
-                        const SizedBox(height: 16),
-
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -202,57 +132,32 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                                   builder: (context) => UserTeamsScreen(),
                                 ));
                           },
-                          child: Row(
-                            children: [
-                              Icon(Icons.groups,
-                                  color: Colors.green), // Green icon
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  'Your Teams',
-                                  style: TextStyle(
-                                    fontSize: 16, // Normal text size
-                                    fontWeight:
-                                        FontWeight.normal, // Normal font weight
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: _buildClickableRow(Icons.groups, 'Your Teams'),
                         ),
-                        SizedBox(
-                          height: 24,
+                        SizedBox(height: 16),
+                        GestureDetector(
+                          onTap: () async {
+                            final playerId = await LoginServices().getPlayerId();
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(playerId: playerId!,)));
+                          },
+                          child: _buildClickableRow(Icons.air, 'My request'),
                         ),
+                        const SizedBox(height: 24),
 
-                        
-
-
-                        // _buildInfoRow(Icons.star, 'Experience Level', experienceLevel),
-                        // const Divider(color: Colors.grey, thickness: 1),
-                        // const SizedBox(height: 24),
-
-                        // Delete Button
                         Center(
                           child: TextButton(
                             onPressed: () {
                               _confirmDeletion(context);
                             },
                             style: TextButton.styleFrom(
-                              foregroundColor: Colors.red, // Red text color
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 12),
+                              foregroundColor: Colors.red,
                             ),
                             child: const Text(
                               'Delete Account',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
-                        // Create Team Button
                       ],
                     );
                   }
@@ -263,58 +168,68 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
     );
   }
 
-  // Helper method to create info rows with icon, title, and value
   Widget _buildInfoRow(IconData icon, String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.green),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              '$title: $value',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClickableRow(IconData icon, String title) {
     return Row(
       children: [
-        Icon(icon, color: Colors.green), // Green icon
+        Icon(icon, color: Colors.green),
         const SizedBox(width: 16),
         Expanded(
           child: Text(
-            '$title: $value',
-            style: TextStyle(
-              fontSize: 16, // Normal text size
-              fontWeight: FontWeight.normal, // Normal font weight
-              color: Colors.black,
-            ),
+            title,
+            style: TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
+        const Icon(Icons.arrow_forward_ios, color: Colors.white),
       ],
     );
   }
 
-  // Confirm Deletion Dialog
   void _confirmDeletion(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Confirm Account Deletion'),
+          backgroundColor: Colors.grey[900],
+          title: const Text('Confirm Account Deletion', style: TextStyle(color: Colors.white)),
           content: const Text(
-              'Are you sure you want to delete your account? This action cannot be undone.'),
+            'Are you sure you want to delete your account? This action cannot be undone.',
+            style: TextStyle(color: Colors.white70),
+          ),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: const Text('Cancel', style: TextStyle(color: Colors.white)),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
-                _deleteAccount(); // Call delete account function
+                Navigator.pop(context);
+                _deleteAccount();
               },
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
-              ),
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
             ),
           ],
         );
       },
     );
   }
-
-
-
 }

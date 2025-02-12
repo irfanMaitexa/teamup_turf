@@ -77,8 +77,7 @@ class _TurfBookingScreenState extends State<TurfBookingScreen> {
   void _openRazorpay() {
     if (_dateController.text.isEmpty ||
         _startTimeController.text.isEmpty ||
-        _endTimeController.text.isEmpty ||
-        selectedPaymentMethod == null) {
+        _endTimeController.text.isEmpty ) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please fill all fields!')),
       );
@@ -207,70 +206,116 @@ print('End Time: $endTime');
     }
   }
 
+
+
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Book ${widget.turfName}'),
-        backgroundColor: Colors.green,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _dateController,
-              decoration: InputDecoration(labelText: 'Booking Date', suffixIcon: Icon(Icons.calendar_today)),
-              readOnly: true,
-              onTap: _selectDate,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _startTimeController,
-                    decoration: InputDecoration(labelText: 'Start Time', suffixIcon: Icon(Icons.access_time)),
-                    readOnly: true,
-                    onTap: () => _selectTime(_startTimeController),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    controller: _endTimeController,
-                    decoration: InputDecoration(labelText: 'End Time', suffixIcon: Icon(Icons.access_time)),
-                    readOnly: true,
-                    onTap: () => _selectTime(_endTimeController),
-                  ),
-                ),
-              ],
-            ),
-            DropdownButtonFormField<String>(
-              decoration: InputDecoration(labelText: 'Payment Method'),
-              value: selectedPaymentMethod,
-              onChanged: (value) => setState(() => selectedPaymentMethod = value),
-              items: paymentMethods.map((method) => DropdownMenuItem(value: method, child: Text(method))).toList(),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Total Cost: ₹${_totalCost.toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _openRazorpay,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: _isLoading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Book Now', style: TextStyle(fontSize: 18)),
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.black,
+    appBar: AppBar(
+      title: Text('Book ${widget.turfName}'),
+      backgroundColor: Colors.green,
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: _dateController,
+                              style: TextStyle(color: Colors.white),
+
+            decoration: InputDecoration(
+              labelText: 'Booking Date',
+              labelStyle: TextStyle(color: Colors.white),
+              suffixIcon: Icon(Icons.calendar_today, color: Colors.white),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
               ),
             ),
-          ],
-        ),
+            readOnly: true,
+            onTap: _selectDate,
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _startTimeController,
+                  style: TextStyle(color: Colors.white),
+
+                  decoration: InputDecoration(
+                    labelText: 'Start Time',
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: Icon(Icons.access_time, color: Colors.white),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                 ),
+                  readOnly: true,
+                  onTap: () => _selectTime(_startTimeController),
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  controller: _endTimeController,
+                  decoration: InputDecoration(
+                    labelText: 'End Time',
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: Icon(Icons.access_time, color: Colors.white),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  readOnly: true,
+                  onTap: () => _selectTime(_endTimeController),
+                ),
+              ),
+            ],
+          ),
+          
+          
+          SizedBox(height: 20),
+          Text(
+            'Total Cost: ₹${_totalCost.toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _isLoading ? null : _openRazorpay,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                textStyle: TextStyle(color: Colors.white),
+              ),
+              child: _isLoading
+                  ? CircularProgressIndicator(color: Colors.white)
+                  : Text('Book Now', style: TextStyle(fontSize: 18, color: Colors.white)),
+            ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+
+
+
+
+
+
 }

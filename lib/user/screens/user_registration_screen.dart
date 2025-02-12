@@ -24,16 +24,16 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
   String? _selectedGender;
   String? _selectedPosition;
-  File? _selectedProfileImage; // Changed from _selectedDocument to _selectedProfileImage
+  File? _selectedProfileImage; 
   final ImagePicker _picker = ImagePicker();
   bool isLoading = false;
-  bool _isPasswordVisible = false; // Variable to control password visibility
+  bool _isPasswordVisible = false;
 
   final List<String> footballPositions = [
     'Goalkeeper', 'Defender', 'Midfielder', 'Forward'
   ];
 
-  Future<void> _pickProfileImage() async { // Changed from _pickDocument to _pickProfileImage
+  Future<void> _pickProfileImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
@@ -73,20 +73,20 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
         gender: gender,
         mobile: mobile,
         position: position,
-        avaialabilty: "default", // Set availability to default
-        imageUrl: _selectedProfileImage!, // Changed from _selectedDocument to _selectedProfileImage
+        avaialabilty: "default",
+        imageUrl: _selectedProfileImage!,
         location: location,
         email: email,
         password: password,
       );
 
-
-       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-        'email': email,});
+        'email': email,
+      });
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result)));
       Navigator.push(
@@ -105,7 +105,11 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Registration'), backgroundColor: Colors.green),
+      backgroundColor: Colors.black, // Background set to black
+      appBar: AppBar(
+        title: const Text('User Registration', style: TextStyle(color: Colors.white)), // Text color white
+        backgroundColor: Colors.green,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -113,19 +117,29 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Register', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              const Text('Register', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)), // Text color white
               const SizedBox(height: 16),
               TextFormField(
                 controller: _playerNameController,
-                decoration: const InputDecoration(labelText: 'Player Name', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Player Name', 
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
+                style: TextStyle(color: Colors.white), // Text color white
                 validator: (value) => value!.isEmpty ? 'Please enter your name' : null,
               ),
               const SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: _selectedGender,
-                decoration: const InputDecoration(labelText: 'Gender', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Gender', 
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
+                dropdownColor: Colors.black, // Dropdown background color black
                 items: ['Male', 'Female', 'Other']
-                    .map((gender) => DropdownMenuItem(value: gender, child: Text(gender)))
+                    .map((gender) => DropdownMenuItem(value: gender, child: Text(gender, style: TextStyle(color: Colors.white))))
                     .toList(),
                 onChanged: (value) => setState(() => _selectedGender = value),
                 validator: (value) => value == null ? 'Please select your gender' : null,
@@ -133,16 +147,26 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
               const SizedBox(height: 10),
               TextFormField(
                 controller: _mobileController,
-                decoration: const InputDecoration(labelText: 'Mobile', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Mobile',
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
                 keyboardType: TextInputType.phone,
+                style: TextStyle(color: Colors.white), // Text color white
                 validator: (value) => value!.isEmpty ? 'Please enter your mobile number' : null,
               ),
               const SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: _selectedPosition,
-                decoration: const InputDecoration(labelText: 'Position', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Position', 
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
+                dropdownColor: Colors.black, // Dropdown background color black
                 items: footballPositions
-                    .map((position) => DropdownMenuItem(value: position, child: Text(position)))
+                    .map((position) => DropdownMenuItem(value: position, child: Text(position, style: TextStyle(color: Colors.white))))
                     .toList(),
                 onChanged: (value) => setState(() => _selectedPosition = value),
                 validator: (value) => value == null ? 'Please select your position' : null,
@@ -150,13 +174,23 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
               const SizedBox(height: 10),
               TextFormField(
                 controller: _locationController,
-                decoration: const InputDecoration(labelText: 'Location', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Location', 
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
+                style: TextStyle(color: Colors.white), // Text color white
                 validator: (value) => value!.isEmpty ? 'Please enter your location' : null,
               ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Email', 
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
+                ),
+                style: TextStyle(color: Colors.white), // Text color white
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => value!.isEmpty || !value.contains('@') ? 'Enter a valid email' : null,
               ),
@@ -169,6 +203,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.white, // Icon color white
                     ),
                     onPressed: () {
                       setState(() {
@@ -176,24 +211,26 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                       });
                     },
                   ),
+                  labelStyle: TextStyle(color: Colors.white), // Label color white
                 ),
-                obscureText: !_isPasswordVisible, // Toggle visibility
+                obscureText: !_isPasswordVisible,
+                style: TextStyle(color: Colors.white), // Text color white
                 validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
               ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Upload Profile Image", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), // Changed text
+                  const Text("Upload Profile Image", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)), 
                   ElevatedButton(
-                    onPressed: _pickProfileImage, // Changed from _pickDocument to _pickProfileImage
+                    onPressed: _pickProfileImage,
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    child: const Text("Choose Image"), // Changed text
+                    child: const Text("Choose Image", style: TextStyle(color: Colors.white)), // Text color white
                   ),
                 ],
               ),
-              if (_selectedProfileImage != null) // Changed from _selectedDocument to _selectedProfileImage
-                Text("Selected Image: ${_selectedProfileImage!.path}", style: const TextStyle(color: Colors.black54)), // Changed text
+              if (_selectedProfileImage != null)
+                Text("Selected Image: ${_selectedProfileImage!.path}", style: const TextStyle(color: Colors.white)), 
               const SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,

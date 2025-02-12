@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 20),
             // Add an app title
             Text(
-              'Turf App',
+              'Team Up Turf',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,

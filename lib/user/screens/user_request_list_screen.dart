@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:teamup_turf/baseurl.dart';
-import 'package:teamup_turf/login_services.dart';
 
 class CaptainRequestsScreen extends StatefulWidget {
   final String captainId;
@@ -58,95 +57,107 @@ class _CaptainRequestsScreenState extends State<CaptainRequestsScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Pending Join Requests'),
-      ),
-      body: _pendingRequests.isEmpty
-          ? Center(
-              child: Text(
-                'No pending requests',
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            )
-          : ListView.builder(
-              itemCount: _pendingRequests.length,
-              itemBuilder: (context, index) {
-                final request = _pendingRequests[index];
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.green,
-                          child: Text(
-                            request['playerName'][0],
-                            style: TextStyle(color: Colors.white),
-                          ),
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.black, // Set background color to black
+    appBar: AppBar(
+      title: Text('Pending Join Requests'),
+      backgroundColor: Colors.green, // AppBar background color
+      foregroundColor: Colors.white, // AppBar text color
+    ),
+    body: _pendingRequests.isEmpty
+        ? Center(
+            child: Text(
+              'No pending requests',
+              style: TextStyle(color: Colors.white, fontSize: 18), // Text in white
+            ),
+          )
+        : ListView.builder(
+            itemCount: _pendingRequests.length,
+            itemBuilder: (context, index) {
+              final request = _pendingRequests[index];
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                color: Colors.green, // Set card background to green
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.black, // Avatar background in black
+                        child: Text(
+                          request['playerName'][0],
+                          style: TextStyle(color: Colors.white), // Avatar text in white
                         ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                request['playerName'],
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Position: ${request['position']}',
-                                style: TextStyle(color: Colors.grey[700]),
-                              ),
-                              Text(
-                                'Mobile: ${request['mobile']}',
-                                style: TextStyle(color: Colors.grey[700]),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _isLoading
-                                ? CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () async {
-                                     final playerId =  request['_id'];
-
-              print(playerId);
-                                     print(widget.teamId);
-                                     print(widget.captainId);
-                                      await manageRequest(playerId!, 'approve');
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Approve',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
+                            Text(
+                              request['playerName'],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black, // Text in black
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Position: ${request['position']}',
+                              style: TextStyle(
+                                color: Colors.black, // Text in black
+                              ),
+                            ),
+                            Text(
+                              'Mobile: ${request['mobile']}',
+                              style: TextStyle(
+                                color: Colors.black, // Text in black
+                              ),
+                            ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          _isLoading
+                              ? CircularProgressIndicator(color: Colors.black) // Loading indicator in black
+                              : ElevatedButton(
+                                  onPressed: () async {
+                                    final playerId = request['_id'];
+                                    print(playerId);
+                                    print(widget.teamId);
+                                    print(widget.captainId);
+                                    await manageRequest(playerId!, 'approve');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black, // Button background in black
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Approve',
+                                    style: TextStyle(color: Colors.white), // Button text in white
+                                  ),
+                                ),
+                        ],
+                      ),
+                    ],
                   ),
-                );
-              },
-            ),
-    );
-  }
+                ),
+              );
+            },
+          ),
+  );
+}
+
+
 }

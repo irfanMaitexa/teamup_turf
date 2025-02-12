@@ -67,22 +67,8 @@ class AdminHomeScreen extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => UserManagementScreen()));
                   },
                 ),
-                _buildAdminOption(
-                  context,
-                  icon: Icons.star,
-                  label: "Feedback",
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AdminFeedbackScreen()));
-                  },
-                ),
-                _buildAdminOption(
-                  context,
-                  icon: Icons.payment,
-                  label: "Payment management",
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPaymentManagementScreen()));
-                  },
-                ),
+               
+               
                 _buildAdminOption(
                   context,
                   icon: Icons.update,

@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:teamup_turf/admin/screens/admin_turf_mangement_screen.dart';
 import 'package:teamup_turf/admin/services/admin_api_services.dart';
+import 'package:teamup_turf/login_services.dart';
+import 'package:teamup_turf/user/screens/review_dialoge.dart';
 import 'package:teamup_turf/user/screens/user_booking_screen.dart';
 import 'package:teamup_turf/user/screens/user_chat_screenns.dart';
 
@@ -69,10 +72,17 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
     );
   }
 
+
+
+
+  //review add 
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.black,
       body: FutureBuilder<Map<String, dynamic>>(
         future: fetchTurfDetails(),
         builder: (context, snapshot) {
@@ -143,6 +153,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Card(
+                color: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                 elevation: 4,
                 child: Padding(
@@ -155,7 +166,7 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          color: Colors.black,
                         ),
                       ),
                       SizedBox(height: 8),
@@ -166,17 +177,11 @@ class _PlayerTurfDetailsScreenState extends State<PlayerTurfDetailsScreen> {
                           Expanded(
                             child: Text(
                               turfDetails['location'],
-                              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                              style: TextStyle(fontSize: 16, color: Colors.black),
                             ),
                           ),
-                          SizedBox(width: 20),
-                          Icon(Icons.star, color: Colors.yellow[700], size: 20),
-                          SizedBox(width: 8),
-                          Text(
-                            // rating.toStringAsFixed(1),
-                            '4',
-                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                          ),
+                          
+                         
                         ],
                       ),
                     ],
@@ -371,8 +376,11 @@ if (turfDetails.containsKey('about') && turfDetails['about'] != null)
                   // Review & Feedback Button
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {
+                      onPressed: () async{
+                        final playerId = await LoginServices().getPlayerId();
+                        final  turfId = widget.turfId;
                         // Navigate to Review & Feedback Screen (Replace with actual screen)
+                      showReviewDialog(context,playerId!, turfDetails['_id']);
                         
                       },
                       icon: Icon(Icons.rate_review, color: Colors.white),

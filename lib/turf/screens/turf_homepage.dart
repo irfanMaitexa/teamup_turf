@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teamup_turf/splash_screen.dart';
 import 'package:teamup_turf/turf/screens/touranament_list.dart';
 import 'package:teamup_turf/turf/screens/tur_tournament_add_screen.dart';
 import 'package:teamup_turf/turf/screens/turf_booking_list_screen.dart';
 import 'package:teamup_turf/turf/screens/turf_dateils_page.dart';
+import 'package:teamup_turf/turf/screens/turf_review_rating_screen.dart';
 import 'package:teamup_turf/turf/screens/turf_user_chat_screen.dart';
+import 'package:teamup_turf/turf/turf_chat_new_screen.dart';
 
 // Sample pages for navigation
 class TurfHomePage extends StatelessWidget {
@@ -26,7 +29,7 @@ class TurfHomePage extends StatelessWidget {
             mainAxisSpacing: 16.0, // space between rows
             childAspectRatio: 1.0, // Equal size for all cards
           ),
-          itemCount: 5, // Increased itemCount to include logout card
+          itemCount: 6, // Increased itemCount to include logout card
           itemBuilder: (context, index) {
            
               // Other feature cards
@@ -39,7 +42,7 @@ class TurfHomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => _getFeaturePage(index)),
+                        builder: (context) => _getFeaturePage(index,context)),
                   );
                 },
               );
@@ -58,10 +61,12 @@ class TurfHomePage extends StatelessWidget {
       case 1:
         return 'Bookings';
       case 2:
-        return 'Profile';
+        return 'Chats';
       case 3:
         return 'Tournaments';
-      case 4: 
+      case 4:
+        return 'My Reviews';
+      case 5:
         return 'Logout';
       default:
         return '';
@@ -76,10 +81,12 @@ class TurfHomePage extends StatelessWidget {
       case 1:
         return Icons.calendar_today;
       case 2:
-        return Icons.person;
+        return Icons.chat;
       case 3:
         return Icons.emoji_events;
       case 4:
+        return Icons.reviews;
+      case 5:
         return Icons.logout;
       default:
         return Icons.chat;
@@ -101,18 +108,20 @@ class TurfHomePage extends StatelessWidget {
   }
 
   // Returns the page for each feature card
-  Widget _getFeaturePage(int index) {
+  Widget _getFeaturePage(int index,BuildContext context) {
     switch (index) {
       case 0:
         return TurfDetailsPage();
       case 1:
         return TurfBookingListsScreen();
       case 2:
-        return TurfUserListScreen();
+        return TurfChatNewScreen(turfId: FirebaseAuth.instance.currentUser!.uid,);
       case 3:
         return TournamentListScreen();
       case 4:
-        return TournamentListScreen();
+      
+     
+        return TurfReviewsScreen();
       default:
         return Scaffold();
     }

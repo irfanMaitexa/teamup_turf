@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teamup_turf/login_services.dart';
+import 'package:teamup_turf/turf/screens/turf_chat_screen.dart';
 
 class TurfUserListScreen extends StatefulWidget {
 
@@ -16,9 +18,13 @@ class _TurfUserListScreenState extends State<TurfUserListScreen> {
 
   getTurfId()async{
 
-    turfId = await LoginServices().getPlayerId();
+    turfId = ''  ;
 
     print(turfId);
+
+    setState(() {
+      
+    });
     
 
   }
@@ -28,12 +34,12 @@ class _TurfUserListScreenState extends State<TurfUserListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Users in"),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.green,
       ),
-      body:turfId == null ? CircularProgressIndicator()  : StreamBuilder<QuerySnapshot>(
+      body:StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('chats')
-            .where('turfId', isEqualTo: turfId)
+            .where('turfId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -66,6 +72,15 @@ class _TurfUserListScreenState extends State<TurfUserListScreen> {
                 subtitle: Text("User ID: ${user['senderId']}"),
                 onTap: () {
                   // Handle user selection (e.g., navigate to chat)
+                  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ChatScreen(
+        receiverId: user['senderId']!,
+        receiverName: user['senderName']!,
+      ),
+    ),
+  );
                 },
               );
             },

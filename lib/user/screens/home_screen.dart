@@ -14,27 +14,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black, // Set dark background for the main screen
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
-
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserTeamsScreen()));
-
-          
+          Navigator.push(context, MaterialPageRoute(builder: (context) => UserTeamsScreen()));
         },
         child: const Icon(Icons.person),
-
-        
       ),
-      
       
       body: SingleChildScrollView(
         child: Column(
@@ -44,8 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30), // Increased spacing between sections
             NearbyAndRequests(),
             const SizedBox(height: 30), // Space before Quick Book section
-         
-            // Extra space at the bottom for better layout
           ],
         ),
       ),
@@ -82,7 +71,6 @@ class BannerCarousel extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 image: DecorationImage(
                   image: NetworkImage(image),
-
                   fit: BoxFit.fitWidth,
                 ),
                 boxShadow: [
@@ -103,14 +91,14 @@ class BannerCarousel extends StatelessWidget {
 
 
 class NearbyAndRequests extends StatelessWidget {
-NearbyAndRequests({super.key});
+  NearbyAndRequests({super.key});
   UserApiServices userApiServices = UserApiServices();
 
-    Future<List<dynamic>> getTeams()async{
-    try{
-      final result  = await userApiServices.getAllTeams();
+  Future<List<dynamic>> getTeams() async {
+    try {
+      final result = await userApiServices.getAllTeams();
       return result;
-    }catch(e){
+    } catch (e) {
       return [];
     }
   }
@@ -130,36 +118,36 @@ NearbyAndRequests({super.key});
         ),
         const SizedBox(height: 20),
         FutureBuilder(future: AdminApiServices().getTurfs(status: 'approved'), builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(color: Colors.lightGreen,),);
-          }else if(snapshot.hasError){
-            return Center(child: Text('Something went wrong'),);
-          }else if(snapshot.data!.isEmpty || !snapshot.hasData){
-            return Center(child: Text('No turfs found'),);
-          }else{
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator(color: Colors.lightGreen,));
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Something went wrong', style: TextStyle(color: Colors.white),));
+          } else if (snapshot.data!.isEmpty || !snapshot.hasData) {
+            return Center(child: Text('No turfs found', style: TextStyle(color: Colors.white),));
+          } else {
             final data = snapshot.data;
             return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(data!.length, (index) {
-              return GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerTurfDetailsScreen(turfId: data[index]['loginId'], timeSlots: [], amenities: ['hi']),));
-                },
-                child: NearbyGroundCard(
-                  turf: {
-                    'name': data[index]['turfName'],
-                    'location': data[index]['location'],
-                    'image': data[index]['documentUrl'][0],
-                    'sports': '⚽ +2 sports',
-                  },
-                ),
-              );
-            }),
-          ),
-        );
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(data!.length, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PlayerTurfDetailsScreen(turfId: data[index]['loginId'], timeSlots: [], amenities: ['hi']),));
+                    },
+                    child: NearbyGroundCard(
+                      turf: {
+                        'name': data[index]['turfName'],
+                        'location': data[index]['location'],
+                        'image': data[index]['documentUrl'][0],
+                        'sports': '⚽ +2 sports',
+                      },
+                    ),
+                  );
+                }),
+              ),
+            );
           }
-        },),
+        }),
         const SizedBox(height: 30),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -171,42 +159,40 @@ NearbyAndRequests({super.key});
         ),
         const SizedBox(height: 20),
         FutureBuilder(future: getTeams(), builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(color: Colors.lightGreen,),);
-          }else if(snapshot.hasError){
-            return Center(child: Text('Something went wrong'),);
-          }else if(snapshot.data!.isEmpty || !snapshot.hasData){
-            return Center(child: Text('No Teams found'),);
-          }else{
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator(color: Colors.lightGreen,));
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Something went wrong', style: TextStyle(color: Colors.white),));
+          } else if (snapshot.data!.isEmpty || !snapshot.hasData) {
+            return Center(child: Text('No Teams found', style: TextStyle(color: Colors.white),));
+          } else {
             final data = snapshot.data;
-            
             return ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: data!.length, // Example team requests
-          itemBuilder: (context, index) {
-            final members = data[index]['members'];
-            int noOfMembers = members.length;
-            return GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SingleTeamScreen(id: data[index]['_id']),));
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: data!.length, // Example team requests
+              itemBuilder: (context, index) {
+                final members = data[index]['members'];
+                int noOfMembers = members.length;
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SingleTeamScreen(id: data[index]['_id']),));
+                  },
+                  child: TeamRequestCard(
+                    request: {
+                      'captain': 'Team ${data[index]['teamName']}',
+                      'message': 'Looking for ${11 - noOfMembers} more players for football.',
+                    },
+                  ),
+                );
               },
-              child: TeamRequestCard(
-                request: {
-                  'captain': 'Team ${data[index]['teamName']}',
-                  'message': 'Looking for ${11-noOfMembers} more players for football.',
-                },
-              ),
             );
-          },
-        );
           }
-        },)
+        }),
       ],
     );
   }
 }
-
 
 
 class NearbyGroundCard extends StatelessWidget {
@@ -220,7 +206,7 @@ class NearbyGroundCard extends StatelessWidget {
       width: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: Colors.grey[900], // Dark background for cards
         border: Border.all(
           color: Colors.green
         ),
@@ -251,21 +237,21 @@ class NearbyGroundCard extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Text(
               turf['name']!,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white), // White text for the name
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
               turf['location']!,
-              style: const TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.green), // White text with some opacity
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
               turf['sports']!,
-              style: const TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.green), // Green text for sports
             ),
           ),
         ],
@@ -274,43 +260,30 @@ class NearbyGroundCard extends StatelessWidget {
   }
 }
 
+
 class TeamRequestCard extends StatelessWidget {
   final Map<String, String> request;
   const TeamRequestCard({super.key, required this.request});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.green.shade50, // Light green background for requests
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.green.shade300),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[900], // Dark background for team request cards
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.green),
+      ),
+      child: ListTile(
+        title: Text(
+          request['captain']!,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Icon(Icons.group, color: Colors.green, size: 30),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Request from ${request['captain']}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(request['message']!),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Icon(Icons.arrow_forward, color: Colors.green),
-          ],
+        subtitle: Text(
+          request['message']!,
+          style: const TextStyle(color: Colors.white70),
         ),
+        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white),
       ),
     );
   }
