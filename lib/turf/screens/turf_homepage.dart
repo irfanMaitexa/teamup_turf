@@ -8,6 +8,7 @@ import 'package:teamup_turf/turf/screens/turf_dateils_page.dart';
 import 'package:teamup_turf/turf/screens/turf_review_rating_screen.dart';
 import 'package:teamup_turf/turf/screens/turf_user_chat_screen.dart';
 import 'package:teamup_turf/turf/turf_chat_new_screen.dart';
+import 'package:teamup_turf/uat.dart';
 
 // Sample pages for navigation
 class TurfHomePage extends StatelessWidget {
@@ -18,6 +19,16 @@ class TurfHomePage extends StatelessWidget {
         title: const Text('Turf Management'),
         backgroundColor: Colors.green,
         elevation: 0,
+        actions: [
+          GestureDetector(
+            onTap: () {
+
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => RoleSelectionScreen(),), (route) => false,);
+            },
+
+            child: Icon(Icons.logout),
+          )
+        ],
       ),
       body: Container(
         color: Colors.green.shade50,
@@ -66,8 +77,7 @@ class TurfHomePage extends StatelessWidget {
         return 'Tournaments';
       case 4:
         return 'My Reviews';
-      case 5:
-        return 'Logout';
+     
       default:
         return '';
     }
@@ -86,8 +96,7 @@ class TurfHomePage extends StatelessWidget {
         return Icons.emoji_events;
       case 4:
         return Icons.reviews;
-      case 5:
-        return Icons.logout;
+    
       default:
         return Icons.chat;
     }
