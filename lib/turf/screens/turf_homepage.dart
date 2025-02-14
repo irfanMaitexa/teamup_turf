@@ -40,7 +40,7 @@ class TurfHomePage extends StatelessWidget {
             mainAxisSpacing: 16.0, // space between rows
             childAspectRatio: 1.0, // Equal size for all cards
           ),
-          itemCount: 6, // Increased itemCount to include logout card
+          itemCount: 5, // Increased itemCount to include logout card
           itemBuilder: (context, index) {
            
               // Other feature cards

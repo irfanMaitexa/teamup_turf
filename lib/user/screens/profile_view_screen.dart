@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teamup_turf/admin/services/admin_api_services.dart';
 import 'package:teamup_turf/login_services.dart';
 import 'package:teamup_turf/splash_screen.dart';
 import 'package:teamup_turf/turf/services/turf_api_services.dart';
+import 'package:teamup_turf/uat.dart';
 import 'package:teamup_turf/user/screens/my_request_screen.dart';
 import 'package:teamup_turf/user/screens/user_edit_profile_screen.dart';
 import 'package:teamup_turf/user/screens/user_teams_screen.dart';
@@ -139,11 +141,25 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                           onTap: () async {
                             final playerId = await LoginServices().getPlayerId();
                             Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(playerId: playerId!,)));
+
+
+                           
                           },
                           child: _buildClickableRow(Icons.air, 'My request'),
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 16),
+                        
+                        GestureDetector(
+                          onTap: () async {
+                            
 
+                             final prefs = await SharedPreferences.getInstance();
+                            prefs.remove('playerId');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RoleSelectionScreen()));
+                          },
+                          child: _buildClickableRow(Icons.logout, 'logout'),
+                        ),
+const SizedBox(height: 24),
                         Center(
                           child: TextButton(
                             onPressed: () {

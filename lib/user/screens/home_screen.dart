@@ -49,9 +49,8 @@ class BannerCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> bannerImages = [
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR86JwAGpII4DI79L0X45S1L71_mNNyJ3dC2A&s',
-      'https://content.jdmagicbox.com/v2/comp/kolkata/w3/033pxx33.xx33.240126100542.p7w3/catalogue/inside-out-turf-sodepur-kolkata-sports-clubs-eskdy5lmf1.jpg',
-      'https://ngpe.in/wp-content/uploads/2023/12/New-and-Unique-Sports.jpg',
+      'https://rayzon.in/images/Turf-banner-M001.jpg',
+      'https://cdn-gpjfl.nitrocdn.com/ujqgKUJxjgMxUUqQTobiLoiNmMzRtSHj/assets/images/optimized/rev-e0c6895/www.syntheticgrasswarehouse.com.au/wp-content/uploads/2021/07/SGWA-banner4-2.jpg',
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -61,7 +60,7 @@ class BannerCarousel extends StatelessWidget {
           options: CarouselOptions(
             height: 180.0,
             autoPlay: true,
-            enlargeCenterPage: true,
+            enlargeCenterPage: false,
             viewportFraction: 0.85,
           ),
           items: bannerImages.map((image) {

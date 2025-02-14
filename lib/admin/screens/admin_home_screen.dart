@@ -83,7 +83,7 @@ class AdminHomeScreen extends StatelessWidget {
 
                  _buildAdminOption(
                   context,
-                  icon: Icons.update,
+                  icon: Icons.playlist_add_check,
                   label: "All touranments",
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AllTournamentListScreen()));
