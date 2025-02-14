@@ -170,6 +170,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 SizedBox(height: 10),
 
                 // Signup navigation
+                if( widget.role != 'admin')
                 RichText(
                   text: TextSpan(
                     children: [
